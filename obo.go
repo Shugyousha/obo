@@ -89,7 +89,8 @@ func parseObo(oboinput bufio.Reader, obochan chan *OboTermEntry, parentchildren 
 			fmt.Fprintf(os.Stderr, "Chopped line number: %d\n", lineno)
 		}
 
-		if line == "[Term]" {
+		switch line {
+		case "[Term]":
 			termsstarted = true
 			if entry != nil {
 				obochan <- entry
@@ -97,14 +98,16 @@ func parseObo(oboinput bufio.Reader, obochan chan *OboTermEntry, parentchildren 
 
 			entry = new(OboTermEntry)
 			continue
-		} else if line == "\n" {
+		case "\n":
 			continue
-		} else if line == "[Typedef]" {
+		case "[Typedef]":
 			continue
-		} else if line == "" {
+		case "":
 			continue
-		} else if line[0] == '!' {
-			continue
+		default:
+			if line[0] == '!' {
+				continue
+			}
 		}
 
 		if termsstarted {

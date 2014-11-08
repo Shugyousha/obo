@@ -27,6 +27,7 @@ name: part_of
 
 [Term]
 id: SYMP:0000000
+! We do not care about this comment
 name: cellulitis
 def: "Cellulitis is a musculoskeletal system symptom characterized as a diffuse and especially subcutaneous inflammation of connective tissue." [URL:http\://www2.merriam-webster.com/cgi-bin/mwmednlm?book=Medical&va=cellulitis]
 is_a: SYMP:0000891 ! musculoskeletal system symptom
