@@ -110,35 +110,36 @@ func parseObo(oboinput bufio.Reader, obochan chan *OboTermEntry, parentchildren 
 			}
 		}
 
-		if termsstarted {
-			splitline := strings.SplitN(line, ":", 2)
-			trimmedvalue := strings.Trim(splitline[1], " ")
-			field := strings.Trim(splitline[0], " ")
-			switch field {
-			case "id":
-				entry.Id = trimmedvalue
-			case "name":
-				entry.Name = trimmedvalue
-			case "def":
-				entry.Def = trimmedvalue
-			case "alt_id":
-				entry.Altids = append(entry.Altids, trimmedvalue)
-			case "xref":
-				entry.Xrefs = append(entry.Xrefs, trimmedvalue)
-			case "synonym":
-				syn := strings.SplitN(trimmedvalue, "\" ", 2)
-				r := strings.NewReplacer("\"", "")
-				entry.Synonyms = append(entry.Synonyms, r.Replace(syn[0]))
-			case "is_a":
-				isa := strings.SplitN(trimmedvalue, "!", 2)
-				trimmedisa := strings.Trim(isa[0], " ")
-				entry.IsA = append(entry.IsA, trimmedisa)
-				if parentchildren != nil {
-					parentchildren[trimmedisa] = append(parentchildren[trimmedisa], entry)
-				}
-			case "is_obsolete":
-				entry.Obsolete = true
+		if !termsstarted {
+			continue
+		}
+		splitline := strings.SplitN(line, ":", 2)
+		trimmedvalue := strings.Trim(splitline[1], " ")
+		field := strings.Trim(splitline[0], " ")
+		switch field {
+		case "id":
+			entry.Id = trimmedvalue
+		case "name":
+			entry.Name = trimmedvalue
+		case "def":
+			entry.Def = trimmedvalue
+		case "alt_id":
+			entry.Altids = append(entry.Altids, trimmedvalue)
+		case "xref":
+			entry.Xrefs = append(entry.Xrefs, trimmedvalue)
+		case "synonym":
+			syn := strings.SplitN(trimmedvalue, "\" ", 2)
+			r := strings.NewReplacer("\"", "")
+			entry.Synonyms = append(entry.Synonyms, r.Replace(syn[0]))
+		case "is_a":
+			isa := strings.SplitN(trimmedvalue, "!", 2)
+			trimmedisa := strings.Trim(isa[0], " ")
+			entry.IsA = append(entry.IsA, trimmedisa)
+			if parentchildren != nil {
+				parentchildren[trimmedisa] = append(parentchildren[trimmedisa], entry)
 			}
+		case "is_obsolete":
+			entry.Obsolete = true
 		}
 	}
 	obochan <- entry
