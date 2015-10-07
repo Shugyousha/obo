@@ -69,9 +69,10 @@ func Dump(oboent []*OboTermEntry, parentchildrenmap map[string][]*OboTermEntry) 
 }
 
 func parseObo(oboinput bufio.Reader, obochan chan *OboTermEntry, parentchildren map[string][]*OboTermEntry) {
-	lineno := 0
 	var entry *OboTermEntry
 	var termsstarted bool
+
+	lineno := 0
 	defer close(obochan)
 
 	for {
