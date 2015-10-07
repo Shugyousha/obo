@@ -73,6 +73,7 @@ func parseObo(oboinput bufio.Reader, obochan chan *OboTermEntry, parentchildren 
 	var termsstarted bool
 
 	lineno := 0
+	rep := strings.NewReplacer("\"", "")
 	defer close(obochan)
 
 	for {
@@ -130,8 +131,7 @@ func parseObo(oboinput bufio.Reader, obochan chan *OboTermEntry, parentchildren 
 			entry.Xrefs = append(entry.Xrefs, trimmedvalue)
 		case "synonym":
 			syn := strings.SplitN(trimmedvalue, "\" ", 2)
-			r := strings.NewReplacer("\"", "")
-			entry.Synonyms = append(entry.Synonyms, r.Replace(syn[0]))
+			entry.Synonyms = append(entry.Synonyms, rep.Replace(syn[0]))
 		case "is_a":
 			isa := strings.SplitN(trimmedvalue, "!", 2)
 			trimmedisa := strings.Trim(isa[0], " ")
