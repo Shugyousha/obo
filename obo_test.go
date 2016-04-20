@@ -9,9 +9,10 @@ import (
 )
 
 func TestOboParsing(*testing.T) {
+	var obolist []*OboTermEntry
+
 	parentchildren := make(map[string][]*OboTermEntry)
 	obochan := make(chan *OboTermEntry)
-	var obolist []*OboTermEntry
 
 	s := `
 
