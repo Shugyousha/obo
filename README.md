@@ -1,9 +1,13 @@
 # Introduction to the obo package
 
-This is a WIP for a go library for parsing [.obo files](http://www.geneontology.org/GO.format.obo-1_2.shtml). The library currently parses .obo files and returns either a channel to, or a slice of the [Term] stanzas contained in the files.
+This is a WIP for a go library for parsing [.obo
+files](http://www.geneontology.org/GO.format.obo-1_2.shtml). The library
+currently parses .obo files and returns either a channel to, or a slice
+of the [Term] stanzas contained in the files.
 
-The parsing of other stanza types is still under construction as are several of the key: value-pairs associated with the [Term] stanza. Please see the TODO section further below.
-
+The parsing of other stanza types is still under construction as are
+several of the key: value-pairs associated with the [Term] stanza. Please
+see the TODO section further below.
 
 
 # Examples
